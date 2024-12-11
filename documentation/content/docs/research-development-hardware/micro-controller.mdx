@@ -1,0 +1,78 @@
+---
+title: Micro Controller
+description: "Updated: December 11, 2024 "
+---
+
+# Options
+
+### Arduino Uno and Mega
+
+- Price: ~$40-70
+- Brand: Arduino
+
+| **Pros**             | **Cons**                             |
+| -------------------- | ------------------------------------ |
+| Beginner friendly    | Relatively Expensive                 |
+| Many peripherals     | Limited processing power             |
+| Many libraries       | No native wifi or bluetooth support  |
+| Many IO ports        | |
+
+---
+
+### ESP32 and ESP8266
+
+- Price: ~$10-50
+- Brand: Espressif
+
+| **Pros**                        | **Cons**                      |
+| ------------------------------- | ----------------------------- |
+| Cheap                           | Harder to use                 |
+| Can include native wifi support | Limited IO pins               |
+| Low power options               | Analog input may cause issues |
+| Can include dual cores          | | 
+
+---
+
+### STM32
+
+- Price: ~$12
+- Brand: STMicroelectronics
+
+| **Pros**                          | **Cons**                            |
+| --------------------------------- | ----------------------------------- |
+| Cheap                             | Harder to use                       |
+| Can be compatible with ArduinoIDE | Fewer community resources           |
+| Good processing power             | Complex development environments    |
+| Good peripherals                  | No native wifi or bluetooth support |
+| More advanced capabilities        | |
+
+---
+
+### Raspberry Pi 
+
+- Price: Varies
+- Brand: RaspberryPi
+
+| **Pros** | **Cons** |
+| --------------------------------------------- | ----------------------------------- |
+| Supported in multiple programming languages   | No native wifi or bluetooth support |
+| Beginner friendly                             | |
+| Many peripherals                              | |
+| Good processing power                         | |
+
+<div className="h-20"></div>
+
+## Summary
+
+| Micro Controller   | Processing Speed | Wifi or Bluetooth | Ease of Use  | Price   |
+| ------------------ | ---------------- | ----------------- |------------- | ------- |
+| Arduino Uno & Mega | 16MHz            | No                | Beginner     | ~$40-70 |
+| ESP32 & ESP8266    | 80-240MHz        | Yes               | Intermediate | ~$10-20 |
+| STM32              | 160-240MHz       | No                | Intermediate | ~$10-50 |
+| Raspberry Pi Pico  | 133MHz           | No                | Beginner     | ~$10    |
+
+## Choice
+
+After going through the options, we decided on the **Arduino Mega** because it offered the most compatibility with external attachments, and the most support for development. 
+The **ESP32** was in close second with its wifi and bluetooth support, which would allow us to communicate wirelessly with the microcontroller. 
+However, for this project, we settled on a wired connection to reduce complexity.
