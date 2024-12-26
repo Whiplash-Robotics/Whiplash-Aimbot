@@ -2,12 +2,13 @@
   "title": "Documentation",
   "pages": [
     "index",
-    "---R&D---",
+    "---Research---",
     "research-development-hardware",
     "research-development-software",
     "---Game Development---",
-    "engine",
+    "...game-dev",
     "---3D Design---",
-    "designSoftware"
+    "...design",
+    "---Integration---"
   ]
 }
