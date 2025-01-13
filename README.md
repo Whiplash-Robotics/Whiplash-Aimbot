@@ -1,7 +1,8 @@
 # Whiplash - real life aim machine
 
 **Status:** Very heavily under construction 🚧  
-**Start Date:** December 5, 2024
+**Start Date:** December 1, 2024
+**Last Updated:** January 13, 2025
 
 This project is an ambitious undertaking to create a _real-life aim machine_—a physical device that moves a mouse to click on targets as quickly and accurately as possible. We aim to push the boundaries of hardware, software, and real-time interaction with a custom-built system.
 
@@ -35,8 +36,8 @@ For more detailed learnings, refer to [LEARNINGS.md](LEARNINGS.md).
 
 ## Tech Stack
 
-- Language: Placeholder for programming language
-- Framework: Fumadocs in Next for Documentation, Placeholder for framework
-- Tools: Placeholder for tools
+- Language: Unreal Engine, C++
+- Framework: Fumadocs in Next for Documentation
+- Tools: Arduino Mega
 - Libraries: Placeholder for libraries
-- Other: Placeholder for other technologies
+- Other: Elegoo Neptune 3 Plus 3D printer
