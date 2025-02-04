@@ -1,0 +1,116 @@
+---
+title: Motor
+description: January 9, 2025
+---
+## Overview
+ A motor is required to drive the [H-bot](../../design/linear-translation#overview). The motor needs to be cheap and powerful, but we dont need it to be small or super precise since we plan on having active real time adjustments.
+
+## Specifications
+<Callout type="warn"> WARNING! Math zone ahead. Please click [HERE](./motor#option) to skip!</Callout>
+
+### Torque
+
+#### Acceleration
+The motor needs to be able to move the mouse across the `~350mm` surface with an initial target of `100ms`.
+The motor will be mounted to a pulley that will pull the [Timing Belt](../mechanical-parts/timing-belt). The acceleration will be constant up to `50ms`, and then reverse from `50ms` to `100ms`.
+This is to ensure that we are accelerating as long as possible, thus not wasting time but also allowing enough time to accelerate in the other direction.
+
+The formula for acceleration given time and final displacement can be found by:
+
+```math
+t = 50ms
+\newline
+
+\Delta d_1 = \frac{1}{2} \cdot at^2
+
+\newline
+
+\Delta d_2 = v_{f1} \cdot t - \frac{1}{2} at^2
+
+\newline
+
+\Delta d = \Delta d_1 + \Delta d_2
+
+\newline
+
+\Delta d = \frac{1}{2} \cdot at^2 + at \cdot t - \frac{1}{2} \cdot at^2
+
+\newline
+
+a = \frac{0.35}{t^2} = \frac{0.35}{0.05^2} = 140m/s^2
+```
+#### Force
+
+The force required to move the mouse is proportional to the mass of the object. The expected mass given the weight of the [linear guide rail](../mechanical-parts/linear-guide-rail) is 400g, so the force can be calculated by:
+
+```math
+
+F_a = m \cdot a
+
+\newline
+
+F_a = 0.4 \cdot 140 = 56N
+```
+
+#### Finding Torque
+
+Using the formula found in the image below:
+
+*credits: https://blog.orientalmotor.com/motor-sizing-basics-part-1-load-torque*
+![Image](./pulleydemo.webp)
+
+we find that the formula for torque is simply:
+
+```math
+\tau = rF_a
+```
+with a radius on the pulley of about ``30mm``, the torque is **1.68Nm**
+
+
+## Speed
+Since our goal is `350mm` in `100ms`, we need a peak tangential velocity of 
+
+```math
+
+v_t = at = 140 \cdot 0.05 = 7m/s
+
+```
+
+then to get the angular velocity:
+
+```math
+
+v_t = \omega r
+
+\\
+
+\omega = \frac{v_t}{0.03}
+\\
+
+\omega = \frac{7}{0.03} = 233.33 \text{ rad}/s = 2228 rpm
+
+```
+## Option
+Buy link (CA): [Aliexpress](https://www.aliexpress.com/item/1005007549390532.html?spm=a2g0o.detail.pcDetailTopMoreOtherSeller.3.801fpzsLpzsLI4&gps-id=pcDetailTopMoreOtherSeller&scm=1007.40050.354490.0&scm_id=1007.40050.354490.0&scm-url=1007.40050.354490.0&pvid=8ac84cb5-d33c-4e85-b2cd-6ae2d21d2520&_t=gps-id:pcDetailTopMoreOtherSeller,scm-url:1007.40050.354490.0,pvid:8ac84cb5-d33c-4e85-b2cd-6ae2d21d2520,tpp_buckets:668%232846%238108%231977&pdp_npi=4%40dis%21CAD%2163.35%2141.18%21%21%2143.07%2128.00%21%402101c59117364491350132645e46aa%2112000041254919416%21rec%21CA%212743790700%21X&utparam-url=scene%3ApcDetailTopMoreOtherSeller%7Cquery_from%3A#nav-specification)
+
+Well, more like *option* (singular). After searching far and wide for many hours, almost every motor either has a crazy shipping fee, way too underpowered, too expensive, or too overpowered. Except one.
+
+#### 997 DC Motor
+
+##### Specs
+- **Price:** $41.18CAD
+- **Power:** 600
+- **Peak torque:** 2.55Nm
+- **Speed:** 3000-9000rpm
+
+## Alternative
+Buy link (CA): [Aliexpress](https://www.aliexpress.com/item/1005005924733546.html?spm=a2g0o.productlist.main.1.755f7cfdveup7w&algo_pvid=65554866-b42e-4296-b980-1952c5182eca&algo_exp_id=65554866-b42e-4296-b980-1952c5182eca-0&pdp_npi=4%40dis%21CAD%2132.18%2132.18%21%21%21160.74%21160.74%21%40210318e817364491281691307e23d0%2112000034874176767%21sea%21CA%212743790700%21X&curPageLogUid=qVwlg3sSqQzX&utparam-url=scene%3Asearch%7Cquery_from%3A#nav-specification)
+
+After doing this research, we realized that our goal of 350mm in 100ms might be unfeasible. We found a weaker motor that is less power demanding but should stil be able to deliver on our goal of *inhuman aim*.
+#### 895 DC Motor
+
+##### Specs
+- **Price:** $32.18CAD
+- **Power:** 300W
+- **Peak torque:** 1Nm
+- **Speed:** 3000-6000rpm

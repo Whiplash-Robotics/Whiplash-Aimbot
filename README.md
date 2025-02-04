@@ -34,7 +34,7 @@ A huge thanks to everyone involved in this project!
 
 For more detailed learnings, refer to [LEARNINGS.md](LEARNINGS.md).
 
-## Tech Stack
+## Techs!
 
 - Language: Unreal Engine, C++
 - Framework: Fumadocs in Next for Documentation

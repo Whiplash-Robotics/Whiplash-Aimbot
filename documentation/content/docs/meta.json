@@ -1,0 +1,16 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "---Research---",
+    "research-development-hardware",
+    "research-development-software",
+    "---Game Development---",
+    "...game-dev",
+    "---3D Design---",
+    "...design",
+    "---Integration---",
+    "---Downloads---",
+    "assets"
+  ]
+}
