@@ -1,0 +1,16 @@
+# Ignore Binaries, Build, and Intermediate files
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Ignore VS files
+.vscode/
+*.sln
+*.VC.db
+*.VC.opendb
+
+# Ignore auto-generated config files
+Config/DefaultEditorPerProjectUserSettings.ini
+Config/DefaultEditor.ini
