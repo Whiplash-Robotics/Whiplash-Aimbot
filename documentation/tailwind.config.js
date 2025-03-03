@@ -18,12 +18,15 @@ function addThemeVariables({ addBase }) {
       "--border": "210 29% 20%",
       "--input": "210 29% 20%",
       "--ring": "210 29% 20%",
-      "--card": "232 52% 6%",
+      "--card": "232 52% 8%",
       "--muted": "233 37% 15%",
+      "--muted-foreground": "0 0% 75%",
       "--primary": "50 100% 50%",
+      "--primary-hover": "65 41% 90%",
+      "--primary-active-hover":"56 100% 50%",
       "--accent-foreground": "0 0% 100%",
-      "--accent": "240 67% 14%",
-      "--background": "240 85% 2%", // Dark navy blue background in dark mode
+      "--accent": "240, 67%, 14%",
+      "--background": "240 85% 4%", // Dark navy blue background in dark mode
       "--foreground": "0 0% 100%", // White text in dark mode
       "--highlight": "50 100% 50%", // Yellow highlight remains the same
     },

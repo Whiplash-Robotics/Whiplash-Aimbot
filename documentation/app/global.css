@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#nd-sidebar > div > div:first-child > button:hover {
+    color: white;
+    
+}
+
+#nd-toc > div > h3{
+    color: white;
+}
+#nd-toc{
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(30px);
+    padding-left: 3rem;
+}
+#nd-toc > div > div > div > div > div:last-child > a[data-active="false"]:hover {
+    color: hsl(var(--primary-hover));
+}
+#nd-toc > div > div > div > div > div:last-child > a[data-active="true"]:hover {
+    color: hsl(var(--primary-active-hover));    
+}
+body{
+    background-color: hsl(var(--background));
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, hsl(var(--background)) 200px ), repeating-linear-gradient(hsla(var(--accent), 0.5), hsl(var(--background)) );
+}
