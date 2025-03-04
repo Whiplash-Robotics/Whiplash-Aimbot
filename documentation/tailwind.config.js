@@ -23,10 +23,12 @@ function addThemeVariables({ addBase }) {
       "--muted-foreground": "0 0% 75%",
       "--primary": "50 100% 50%",
       "--primary-hover": "65 41% 90%",
-      "--primary-active-hover":"56 100% 50%",
+      "--primary-active-hover": "56 100% 50%",
       "--accent-foreground": "0 0% 100%",
       "--accent": "240, 67%, 14%",
-      "--background": "240 85% 4%", // Dark navy blue background in dark mode
+      "--background3": "240, 67%, 8%",
+      "--background2": "240, 85%, 6%",
+      "--background": "240, 85%, 5%", // Dark navy blue background in dark mode
       "--foreground": "0 0% 100%", // White text in dark mode
       "--highlight": "50 100% 50%", // Yellow highlight remains the same
     },
