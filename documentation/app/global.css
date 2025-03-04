@@ -57,7 +57,13 @@ body{
 */
 
 body {
-  --s: 20vw;
+  --s: 40vw;
+  @media (min-width: 768px) {
+    --s: 30vw;
+  }
+  @media (min-width: 1024px) {
+    --s: 20vw;
+  }
   --c1: hsl(var(--background3));
   --c2: hsl(var(--background2));
   --c3: hsl(var(--background));
@@ -96,6 +102,7 @@ body {
       var(--c3) 0
     );
   background-size: calc(var(--s) * sqrt(3)) var(--s);
+  background-attachment: fixed;
 }
 
 /*
