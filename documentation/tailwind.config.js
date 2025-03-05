@@ -6,14 +6,25 @@ function addThemeVariables({ addBase }) {
   addBase({
     ":root": {
       // Light theme variables
-      "--border": "220 14% 96%",
-      "--input": "220 14% 96%",
-      "--ring": "220 14% 96%",
-      "--background": "0 0% 100%", // White background in light mode
+      "--border": "220 14% 96%", 
+      "--input": "220 14% 96%", 
+      "--ring": "220 14% 96%", 
+      "--card": "210 0% 100%", // White card background
+      "--muted": "210 20% 90%", // Soft gray for muted elements
+      "--muted-foreground": "220 10% 40%", // Medium gray for muted text
+      "--primary": "50 100% 50%", // Vibrant blue (adjust as needed)
+      "--primary-hover": "221 83% 45%", // Slightly darker blue on hover
+      "--primary-active-hover": "56 100% 40%", // Even darker blue when active
+      "--accent": "56 68% 91%", // Warm yellow accent
+      "--accent-foreground": "240 85% 2%", // Dark text for contrast
+      "--background3": "210 50% 98%", // Very light gray background
+      "--background2": "210 50% 95%", // Slightly darker than background3
+      "--background": "210 50% 100%", // White background in light mode
       "--foreground": "240 85% 2%", // Dark navy blue text in light mode
       "--highlight": "50 100% 50%", // Yellow highlight remains the same
-      // Additional variables can be defined as needed
-    },
+      "--article-blur" : "0px",
+},
+
     ".dark": {
       "--border": "210 29% 20%",
       "--input": "210 29% 20%",
@@ -25,12 +36,13 @@ function addThemeVariables({ addBase }) {
       "--primary-hover": "65 41% 90%",
       "--primary-active-hover": "56 100% 50%",
       "--accent-foreground": "0 0% 100%",
-      "--accent": "240, 67%, 14%",
+      "--accent": "240 67% 14%",
       "--background3": "240, 67%, 8%",
       "--background2": "240, 85%, 6%",
       "--background": "240, 85%, 5%", // Dark navy blue background in dark mode
       "--foreground": "0 0% 100%", // White text in dark mode
       "--highlight": "50 100% 50%", // Yellow highlight remains the same
+      "--article-blur" : "1rem",
     },
   });
 }

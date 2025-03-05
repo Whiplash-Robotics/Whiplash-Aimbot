@@ -8,8 +8,8 @@
 
 #nd-page > article {
   @media (min-width: 1200px) {
-    backdrop-filter: blur(3rem);
-    -webkit-backdrop-filter: blur(3rem); /* For Safari */
+    backdrop-filter: blur(var(--article-blur));
+    -webkit-backdrop-filter: blur(var(--article-blur)); /* For Safari */
 
     /* Create a gradient mask: 
      - Transparent at 0% to make edges sharp
@@ -29,11 +29,11 @@
 }
 
 #nd-toc > div > h3 {
-  color: white;
+  color: hsl(var(--foreground));
 }
 #nd-toc {
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(30px);
+  background-color: hsla(var(--card), 0.2);
+  backdrop-filter: blur(1rem);
   padding-left: 3rem;
 }
 #nd-toc
