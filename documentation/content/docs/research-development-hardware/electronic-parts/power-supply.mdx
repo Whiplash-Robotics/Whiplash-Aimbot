@@ -1,55 +1,60 @@
 ---
 title: Power Supply
-description: Feburary 23, 2025
+description: March 3, 2025
 ---
 
 ## Overview
 
-This document outlines the power requirements for a DC 20A 24V motor and details the initial testing using a 24V 20A 480W DC power supply from Amazon. Additionally, it discusses considerations for purchasing a second power supply or a larger one.
+<Callout type="warn">
+  {" "}
+  WARNING! These power supply's deal with deadly high voltage and current. Always take necessary precautions when handling.  
 
-## Power Requirements
+  Some general advice:
+  - NEVER touch live wires
+  - Only use one hand
+  - Wear shoes with rubber soles
+  - These are not exhaustive. See an official source [here](https://nistglobal.com/blog/2022/08/safety-precautions-when-working-with-high-voltage-electricity/)
+</Callout>
 
-The DC 20A 24V motor requires a stable power supply to operate efficiently. The power requirements are as follows:
+A power supply is required to run the motors. The power supply needs to be affordable, and supply the necessary voltage and current to the motor(s). Since we need two motors, there can also be a consideration of using two smaller power supplies, or one larger one.
 
-- **Voltage:** 24V
-- **Current:** 20A
-- **Power:** 480W
+## Specifications
 
-## Initial Testing
+The DC motor we selected requires a stable 24V and 20A to operate efficiently. The requirements for the power supply are as follows:
+| **PSU Type** | **Smaller** | **Larger** |
+| ------------ | ----------- | ---------- |
+| **Voltage**  | 24V         | 24V        |
+| **Current**  | 20A         | 40A        |
+| **Power**    | 480W        | 960W       |
+| **Motors**   | 1           | 2          |
 
-For the initial testing, we used a 24V 20A 480W DC power supply purchased from Amazon. The power supply specifications are:
+# Options
 
-- **Voltage:** 24V
-- **Current:** 20A
-- **Power:** 480W
+## Small Power Supply
 
-### Testing Procedure
+| **Brand**   | **Requirments** | **Lam(MS)pen** | **LEDMO**    | **MEISHILE** |
+| ----------- | --------------- | -------------- | ------------ | ------------ |
+| **Voltage** | 24              | 24             | 24           | 24           |
+| **Current** | 20              | 20             | 20           | 20           |
+| **Power**   | 480             | 480            | 480          | 480          |
+| **Price**   |                 | $41.99         | $49.99       | $33.60       |
+| **Extra**   |                 | Good safety    | Good cooling |              |
 
-1. Connect the DC motor to the power supply.
-2. Ensure all connections are secure and insulated.
-3. Gradually increase the voltage to 24V while monitoring the current draw.
-4. Observe the motor's performance and check for any irregularities.
+## Large Power Supply
 
-### Results
+| **Brand**   | **Requirments**  | **Bossnwatt** | **BOSYTRO** |
+| ----------- | ---------------  | ------------ | ------------ |
+| **Voltage** | 24               | 24           | 24           |
+| **Current** | 40               | 40           | 40           |
+| **Power**   | 960              | 1000         | 1000         |
+| **Motors**  | 2                | 2            | 2            |
+| **Price**   |                  | $69.99       | $99.99       |
+| **Extra**   |                  | Good safety  | Good safety  |
 
-The initial testing showed that the motor performed as expected under the given power supply. However, the power supply was operating at its maximum capacity, which may not be ideal for prolonged use.
+<div className="h-20"></div>
 
-## Considerations for Power Supply
+## Choice
 
-Given the results of the initial testing, it is important to consider the following options:
-
-1. **Purchasing a Second Power Supply:**
-
-   - Using two power supplies in parallel can provide additional current capacity.
-   - Ensure that the power supplies are properly synchronized to avoid any potential issues.
-
-2. **Purchasing a Larger Power Supply:**
-   - A larger power supply with higher current capacity can provide more headroom and ensure stable operation.
-   - Consider a power supply with at least 30A current capacity to provide a safety margin.
-
-### Recommended Power Supplies
-
-- **Option 1:** [24V 30A 720W DC Power Supply](https://www.amazon.com/dp/B07K8ZQ7X5)
-- **Option 2:** [24V 40A 960W DC Power Supply](https://www.amazon.com/dp/B07K8ZQ7X5)
-
-By considering these options, we can ensure that the DC motor operates efficiently and reliably during extended use.
+After considering the options, we decided on getting a Lam(MS)pen 480W power supply. 
+We chose this one because it offered good safety features at a good cost.
+We also wanted to test our motors without spending too much, so it would pay off more to get a smaller power supply.
