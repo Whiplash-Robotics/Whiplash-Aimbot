@@ -1,0 +1,6 @@
+documentation/** linguist-detectable
+*.uasset linguist-vendored
+*.umap linguist-vendored
+*.exe linguist-vendored
+*.dll linguist-vendored
+
