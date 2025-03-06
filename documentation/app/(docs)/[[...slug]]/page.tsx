@@ -20,9 +20,22 @@ export default async function Page(props: {
   const MDX = page.data.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc || "Nothing here"}
+      tableOfContent={{
+        style: "clerk",
+      }}
+      editOnGithub={{
+        owner: "Juno9170",
+        repo: "Whiplash",
+        sha: "main",
+        path: `documentation/content/docs/${page.file.path}`,
+      }}
+      full={page.data.full}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
+
       <DocsBody>
         <MDX components={{ ...defaultMdxComponents, Badge, Image }} />
       </DocsBody>
