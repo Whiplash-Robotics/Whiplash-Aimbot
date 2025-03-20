@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Badge } from "@/app/components/Badge";
 import Image from "next/image";
+import { Pre, CodeBlock } from "fumadocs-ui/components/codeblock";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -37,7 +38,18 @@ export default async function Page(props: {
       <DocsDescription>{page.data.description}</DocsDescription>
 
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents, Badge, Image }} />
+        <MDX
+          components={{
+            ...defaultMdxComponents,
+            Badge,
+            Image,
+            pre: ({ ref: _ref, ...props }) => (
+              <CodeBlock {...props}>
+                <Pre>{props.children}</Pre>
+              </CodeBlock>
+            ),
+          }}
+        />
       </DocsBody>
     </DocsPage>
   );
