@@ -1,4 +1,17 @@
-documentation/** linguist-detectable=true
+documentation/** -linguist-documentation
+documentation/** linguist-detectable
+documentation/content/docs/** -linguist-documentation
+documentation/content/docs/** linguist-detectable
+# Ensure MDX files are included in stats
+documentation/content/docs/**/*.mdx linguist-detectable
+
+# Ensure TSX files are recognized
+documentation/**/*.tsx linguist-detectable
+
+# Ensure JS and MJS config files are counted
+documentation/**/*.js linguist-detectable
+documentation/**/*.mjs linguist-detectable
+
 *.uasset linguist-vendored
 *.umap linguist-vendored
 *.exe linguist-vendored
