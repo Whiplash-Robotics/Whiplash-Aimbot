@@ -1,6 +1,6 @@
 ---
 title: Model Selection
-description: "Updated: March 19, 2025"
+description: "Updated: March 20, 2025"
 ---
 
 ## Objectives
@@ -19,7 +19,7 @@ We've set the following performance standards to aim for:
 
 ### Roadmap
 
-We'll start by leveraging pre-trained models from the You Only Look Once (YOLO) family, assessing their viability in real-time scenarios, as it's been deployed in many real-time critical industrial use cases already. If these models either fall short of our performance benchmarks or, conversely, prove effective but leave room for further optimization, we'll pivot to training our own CNN—either as a last resort or as an experiment to push Whiplash's capabilities even further.
+We'll start by leveraging pre-trained models from the You Only Look Once (YOLO) family, assessing their viability in real-time scenarios, as it's been deployed in many real-time critical industrial use cases already. If these models either fall short of our performance benchmarks or, conversely, prove effective but leave room for further optimization, we'll pivot to training our own CNN - either as a last resort or as an experiment to push Whiplash's capabilities even further.
 
 ---
 
@@ -29,18 +29,11 @@ We'll start by leveraging pre-trained models from the You Only Look Once (YOLO) 
 
 ![Model Comparison](./Figure_1.png)
 
-<p
-  style={{
-    textAlign: "center",
-    color: "#666",
-    fontSize: "0.9rem",
-    marginTop: "0.5rem",
-  }}
->
+<div className="text-center text-gray-400 text-sm">
   An efficiency score is calculated from the latency and mAP values of each
   model <br />
   Latency: 0.7, mAP: 0.3
-</p>
+</div>
 
 | **Model**   | **Release** | **Notes**                                                  | **Exp. Latency (ms)** | **Exp. Speed (FPS)** | **Exp. Accuracy (mAP)** |
 | ----------- | ----------- | ---------------------------------------------------------- | --------------------- | -------------------- | ----------------------- |
@@ -60,21 +53,14 @@ We'll start by leveraging pre-trained models from the You Only Look Once (YOLO) 
 | DAMO-YOLO-s | Dec 2022    | Alibaba's small model                                      | 3.45                  | 290                  | 46.0                    |
 | YOLOX-s     | Jul 2021    | An anchor-free version of YOLO                             | 2.56                  | 391                  | 40.5                    |
 
-<p
-  style={{
-    textAlign: "center",
-    color: "#666",
-    fontSize: "0.9rem",
-    marginTop: "0rem",
-  }}
->
+<div className="text-center">
   <a
+    className="text-gray-400 text-sm"
     href="https://docs.ultralytics.com/modes/benchmark/#benchmark-visualization"
-    style={{ color: "#666" }}
   >
     Source
   </a>
-</p>
+</div>
 
 ### Models Included in Testing
 
