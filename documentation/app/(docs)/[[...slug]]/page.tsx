@@ -37,7 +37,13 @@ export default async function Page(props: {
       <DocsDescription>{page.data.description}</DocsDescription>
 
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents, Badge, Image }} />
+        <MDX
+          components={{
+            ...defaultMdxComponents,
+            Badge,
+            Image,
+          }}
+        />
       </DocsBody>
     </DocsPage>
   );

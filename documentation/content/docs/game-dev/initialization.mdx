@@ -3,17 +3,73 @@ title: Game Initialization
 description: March 3, 2025
 ---
 
+
 ## Overview
-Quick guide on how to set up Unreal Engine to open the game project
+
+Quick guide on how to set up [Unreal Engine](https://www.unrealengine.com/en-US) to open the game project. The reason behind the choice of game engine can be found [here](../research-development-software/engine)
+
+## Cloning the game:
+
+    #### For Developers
+
+    Note: git LFS must be installed on your devices to clone the repository. If it is not installed, please follow the ensuing instructions:
+
+    1. If a previous version of the repo exists on your device locate and delete the repo on your local computer
+
+    2. In command line (terminal or powershell):
+
+    ```sh
+    git lfs install
+    ```
+
+    3. Clone the repo (cloning may take a few minutes)
+
+    #### For Players
+
+    1. In command line, run: git lfs install
+
+    2. Clone the repo to your directory (cloning may take a few minutes)
+
 
 ## Set up
-1) Download and install [Epic Games Launcher](https://store.epicgames.com/en-US/download)
 
-2) Open the launcher and navigate: <br /> Unreal Engine > Library > Click the plus sign > Add Unreal Engine 4.62.2 > Install
+1. Download and install [Epic Games Launcher](https://store.epicgames.com/en-US/download)
 
-3) Download and install [Visual Studio](https://visualstudio.microsoft.com/downloads/), this step is required to open the project as it uses C++
+2. Open the launcher and navigate: <br /> Unreal Engine > Library > Click the plus sign > Add Unreal Engine 4.27.2 > Install
 
-4) Go to folder in Whiplash and double click the .exe <br />
-<br />
-> That was easy!
+3. Download and install [Visual Studio](https://visualstudio.microsoft.com/downloads/), this step is required to open the project as it uses C++
 
+4. Download and install [.NET Framework 4.8.1+](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net481-developer-pack-offline-installer)
+
+5. Go to folder in Whiplash and double click the .uproject | Alternativley, open Unreal Engine Editor and directly browse the path to the .uproject file
+
+6. If you encounter the following error: <br /> `The following modules are missing or built with a different engine version: game_environment` <br /> Click Yes to rebuild them
+
+7. After rebuilding the game should run in Unreal Engine Editor.
+
+## Troubleshooting
+
+1. If git-lfs is not installed, you may encounter the following error: <br/>
+   `git: 'lfs' is not a git command. See 'git --help'.`<br/>
+   To fix this, you need to install git-lfs which can be done with the following:
+
+```sh title="Windows"
+choco install git-lfs
+# OR
+scoop install git-lfs
+```
+
+```sh title="MacOS"
+brew install git-lfs
+```
+
+```sh title="Linux"
+sudo apt install git-lfs  # Debian/Ubuntu
+sudo dnf install git-lfs  # Fedora
+sudo pacman -S git-lfs    # Arch
+
+# Alternativley you can install from
+[Git LFS website] (https://git-lfs.github.com/)
+```
+
+2. If clicking "Yes" during the rebuild failed, you may not have installed [.NET Framework 4.8.1+](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net481-developer-pack-offline-installer) correctly.
