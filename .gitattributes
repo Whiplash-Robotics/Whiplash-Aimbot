@@ -1,6 +1,62 @@
+documentation/** -linguist-documentation
 documentation/** linguist-detectable
+documentation/content/docs/** -linguist-documentation
+documentation/content/docs/** linguist-detectable
+# Ensure MDX files are included in stats
+documentation/content/docs/**/*.mdx linguist-detectable
+
+# Ensure TSX files are recognized
+documentation/**/*.tsx linguist-detectable
+
+# Ensure JS and MJS config files are counted
+documentation/**/*.js linguist-detectable
+documentation/**/*.mjs linguist-detectable
+
 *.uasset linguist-vendored
 *.umap linguist-vendored
 *.exe linguist-vendored
 *.dll linguist-vendored
 
+
+# Unreal Engine files
+*.uasset filter=lfs diff=lfs merge=lfs
+*.umap filter=lfs diff=lfs merge=lfs
+
+# Audio files
+*.wav filter=lfs diff=lfs merge=lfs
+*.mp3 filter=lfs diff=lfs merge=lfs
+*.ogg filter=lfs diff=lfs merge=lfs
+*.flac filter=lfs diff=lfs merge=lfs
+
+# Texture and Image files
+*.png filter=lfs diff=lfs merge=lfs
+*.jpg filter=lfs diff=lfs merge=lfs
+*.jpeg filter=lfs diff=lfs merge=lfs
+*.tga filter=lfs diff=lfs merge=lfs
+*.bmp filter=lfs diff=lfs merge=lfs
+*.psd filter=lfs diff=lfs merge=lfs
+*.exr filter=lfs diff=lfs merge=lfs
+
+# Video files
+*.mp4 filter=lfs diff=lfs merge=lfs
+*.mov filter=lfs diff=lfs merge=lfs
+*.avi filter=lfs diff=lfs merge=lfs
+
+# 3D Models
+*.fbx filter=lfs diff=lfs merge=lfs
+*.obj filter=lfs diff=lfs merge=lfs
+*.gltf filter=lfs diff=lfs merge=lfs
+*.glb filter=lfs diff=lfs merge=lfs
+
+# Unreal Engine build files (optional, depending on your workflow)
+*.pak filter=lfs diff=lfs merge=lfs
+*.uproject filter=lfs diff=lfs merge=lfs
+
+# Cached or generated files (optional, may depend on your setup)
+*.dll filter=lfs diff=lfs merge=lfs
+*.pdb filter=lfs diff=lfs merge=lfs
+*.exe filter=lfs diff=lfs merge=lfs
+*.lib filter=lfs diff=lfs merge=lfs
+*.app filter=lfs diff=lfs merge=lfs
+*.dylib filter=lfs diff=lfs merge=lfs
+*.so filter=lfs diff=lfs merge=lfs

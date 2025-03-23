@@ -6,9 +6,9 @@ function addThemeVariables({ addBase }) {
   addBase({
     ":root": {
       // Light theme variables
-      "--border": "220 14% 96%", 
-      "--input": "220 14% 96%", 
-      "--ring": "220 14% 96%", 
+      "--border": "220 14% 96%",
+      "--input": "220 14% 96%",
+      "--ring": "220 14% 96%",
       "--card": "210 0% 100%", // White card background
       "--muted": "210 20% 90%", // Soft gray for muted elements
       "--muted-foreground": "220 10% 40%", // Medium gray for muted text
@@ -22,8 +22,8 @@ function addThemeVariables({ addBase }) {
       "--background": "210 50% 100%", // White background in light mode
       "--foreground": "240 85% 2%", // Dark navy blue text in light mode
       "--highlight": "50 100% 50%", // Yellow highlight remains the same
-      "--article-blur" : "0px",
-},
+      "--article-blur": "0px",
+    },
 
     ".dark": {
       "--border": "210 29% 20%",
@@ -42,7 +42,7 @@ function addThemeVariables({ addBase }) {
       "--background": "240, 85%, 5%", // Dark navy blue background in dark mode
       "--foreground": "0 0% 100%", // White text in dark mode
       "--highlight": "50 100% 50%", // Yellow highlight remains the same
-      "--article-blur" : "1rem",
+      "--article-blur": "1rem",
     },
   });
 }
@@ -75,6 +75,11 @@ export default {
         secondary: {
           DEFAULT: "hsl(var(--input))",
           foreground: "hsl(var(--background))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+          text: "hsl(var(--muted-text))",
         },
       },
       // Custom border radius values using a CSS variable for dynamic control.
