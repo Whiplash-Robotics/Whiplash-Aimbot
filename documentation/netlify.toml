@@ -1,3 +1,4 @@
 [build]
+base = "documentation"
 command = "next build"
-publish = "."
+publish = "documentation/.next"
