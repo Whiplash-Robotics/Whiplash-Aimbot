@@ -21,3 +21,5 @@ roboflow download -f <format> -l ./raw https://universe.roboflow.com/nanjing-uni
 ```
 
 3. Profit
+
+- Hopefully you get a data yaml (haven't downloaded yet)
