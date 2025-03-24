@@ -2,7 +2,7 @@
 
 **Status:** Very heavily under construction 🚧  
 **Start Date:** December 1, 2024
-**Last Updated:** March 21, 2025
+**Last Updated:** March 23, 2025
 
 This project is an ambitious undertaking to create a _real-life aim machine_—a physical device that moves a mouse to click on targets as quickly and accurately as possible. We aim to push the boundaries of hardware, software, and real-time interaction with a custom-built system.
 
