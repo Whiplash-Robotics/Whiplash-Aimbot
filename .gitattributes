@@ -28,15 +28,6 @@ documentation/**/*.mjs linguist-detectable
 *.ogg filter=lfs diff=lfs merge=lfs
 *.flac filter=lfs diff=lfs merge=lfs
 
-# Texture and Image files
-*.png filter=lfs diff=lfs merge=lfs
-*.jpg filter=lfs diff=lfs merge=lfs
-*.jpeg filter=lfs diff=lfs merge=lfs
-*.tga filter=lfs diff=lfs merge=lfs
-*.bmp filter=lfs diff=lfs merge=lfs
-*.psd filter=lfs diff=lfs merge=lfs
-*.exr filter=lfs diff=lfs merge=lfs
-
 # Video files
 *.mp4 filter=lfs diff=lfs merge=lfs
 *.mov filter=lfs diff=lfs merge=lfs
