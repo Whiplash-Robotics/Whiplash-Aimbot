@@ -25,6 +25,7 @@ curl -L "https://universe.roboflow.com/ds/1XZHl0LGJg?key=YuXNBlp1M4" > roboflow.
 
 The data should have been successfully imported into the data folder.
 
+```js
 Structure:
 data/
 ├── train/
@@ -45,3 +46,4 @@ data/
 ├── data.yaml
 ├── README.dataset.txt
 └── README.roboflow.txt
+```
