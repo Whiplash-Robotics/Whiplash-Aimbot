@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['-', 'Roboflow is an end-to-end computer vision platform that helps you', 'This dataset was exported via roboflow.com on January 19- 2023 at 2-41 PM GMT', 'valorant - v3 2022-11-05 3-58pm']
+
+roboflow:
+  workspace: nanjing-university-eotbh
+  project: valorantyolov8
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/nanjing-university-eotbh/valorantyolov8/dataset/2
