@@ -1,7 +1,7 @@
 # Whiplash - real life aim machine
 
 <div align="center">
-   
+
 [![Website Status](https://img.shields.io/website?down_message=offline&label=Docs%20Site&style=for-the-badge&up_message=online&url=https://whiplash-robotics.netlify.app/)](https://whiplash-robotics.netlify.app/)
 
 </div>
@@ -9,6 +9,8 @@
 **Status:** Very heavily under construction 🚧  
 **Start Date:** December 1, 2024
 **Last Updated:** March 31, 2025
+
+## **Our Vision**
 
 This project is an ambitious undertaking to create a _real-life aim machine_—a physical device that moves a mouse to click on targets as quickly and accurately as possible. We aim to push the boundaries of hardware, software, and real-time interaction with a custom-built system.
 
