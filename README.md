@@ -1,5 +1,11 @@
 # Whiplash - real life aim machine
 
+<div align="center">
+   
+[![Website Status](https://img.shields.io/website?down_message=offline&label=Docs%20Site&style=for-the-badge&up_message=online&url=https://whiplash-robotics.netlify.app/)](https://whiplash-robotics.netlify.app/)
+
+</div>
+
 **Status:** Very heavily under construction 🚧  
 **Start Date:** December 1, 2024
 **Last Updated:** January 13, 2025
