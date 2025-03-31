@@ -1,0 +1,21 @@
+name: "Hardware🔩"
+description: Create a new hardware-related task
+title: "hardware(scope): description"
+type: "Hardware🔩"
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: "Objective"
+      description: Describe the hardware task
+      placeholder: Describe the task
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: Any other context or resources
+      placeholder: Add any other context or resources
+    validations:
+      required: false

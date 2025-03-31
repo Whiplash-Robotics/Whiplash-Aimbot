@@ -1,0 +1,21 @@
+name: "Docs📝"
+description: Request a documentation update
+title: "docs(scope): description"
+type: "Docs📝"
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Describe the documentation update
+      placeholder: Describe the update
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: Any other context or screenshots
+      placeholder: Add any other context or screenshots
+    validations:
+      required: false

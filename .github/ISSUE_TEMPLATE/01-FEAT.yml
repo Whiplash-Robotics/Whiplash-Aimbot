@@ -1,0 +1,21 @@
+name: "Feat🎯"
+description: Request a new feature
+title: "feat(scope): description"
+type: "Feat🎯"
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of the feature
+      placeholder: Describe your feature request
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: Any other context or screenshots
+      placeholder: Add any other context or screenshots
+    validations:
+      required: false
