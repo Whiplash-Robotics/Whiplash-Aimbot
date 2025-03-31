@@ -1,0 +1,45 @@
+name: "Fix🔧"
+description: Report a bug to be fixed
+title: "fix(scope): description"
+type: "Fix🔧"
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Describe the bug
+      placeholder: Describe the bug
+    validations:
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: Steps to reproduce the bug
+      placeholder: List the steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: What you expected to happen
+      placeholder: Describe the expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: "Actual Behavior"
+      description: What actually happened
+      placeholder: Describe the actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: Any other context or screenshots
+      placeholder: Add any other context or screenshots
+    validations:
+      required: false
