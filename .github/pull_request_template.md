@@ -1,3 +1,5 @@
+# type(scope): description
+
 ## Checklist
 
 - [ ] My PR title matches issue title (type(scope): description)
