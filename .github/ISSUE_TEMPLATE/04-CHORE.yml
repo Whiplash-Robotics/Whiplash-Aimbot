@@ -1,0 +1,21 @@
+name: "Chore🧹"
+description: Create a new chore
+title: "chore(scope): description"
+type: "Chore🧹"
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Describe the chore
+      placeholder: Describe the chore
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: Any other context or screenshots
+      placeholder: Add any other context or screenshots
+    validations:
+      required: false

@@ -1,0 +1,29 @@
+name: "R&D🔎"
+description: Create a new R&D task
+title: "r&d(scope): description"
+type: "R&D🔎"
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: "Objective"
+      description: Describe the research or development task
+      placeholder: Describe the task
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: "Approach"
+      description: Outline the approach or methodology
+      placeholder: Describe the approach
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: Any other context or resources
+      placeholder: Add any other context or resources
+    validations:
+      required: false

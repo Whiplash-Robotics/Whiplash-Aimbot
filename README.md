@@ -32,6 +32,7 @@ The project is in its very early stages, with planning, research, and initial pr
 A huge thanks to everyone involved in this project!
 
 - [Ryan Zhu](https://github.com/Juno9170) – Project lead &rarr; all-around wizard 🧙‍♂️
+- [Daniel Lu](https://github.com/FinityFly) - Computer vision &rarr; hehehehaw 🐷
 - [Uros Petrovic](https://github.com/Crooder1) – R&D hardware &rarr; super genius 🧠
 - [Puneet Singh](https://github.com/punz1738) – 3D Design & Software developer &rarr; the spearhead 💪
 - [Edward Zhang](https://github.com/edwardzhang00) - Game Developer, R&D Software &rarr; our backbone 🪨
@@ -40,10 +41,10 @@ A huge thanks to everyone involved in this project!
 
 For more detailed learnings, refer to [LEARNINGS.md](LEARNINGS.md).
 
-## Techs!
+## Tech Stack
 
-- Language: Unreal Engine, C++
-- Framework: Fumadocs in Next for Documentation
-- Tools: Arduino Mega
+- Language: Placeholder for programming language
+- Framework: Fumadocs in Next for Documentation, Placeholder for framework
+- Tools: Placeholder for tools
 - Libraries: Placeholder for libraries
-- Other: Elegoo Neptune 3 Plus 3D printer
+- Other: Placeholder for other technologies
