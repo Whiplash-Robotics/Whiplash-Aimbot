@@ -11,16 +11,11 @@ There are two overall steps to assembling the dataset.
 
 First of all, we need to obtain the raw images from the game of the enemy on various positions on the screen, in various orientations, and in a variety of environments. 
 
-Second, we need to annotate the dataset, using label-studio and a minimum wage child worker. There are also methods to assist with, or automate the labelling process, such as (Google Gemeni)[https://colab.research.google.com/github/ultralytics/notebooks/blob/main/notebooks/how-to-use-google-gemini-models-for-object-detection-image-captioning-and-ocr.ipynb], (SAM2)[https://docs.ultralytics.com/models/sam-2/], or (YOLOWorld)[https://docs.ultralytics.com/models/yolo-world/], as suggested by (Ultralytics)[https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#how-do-i-train-yolov5-on-my-custom-dataset].
+Second, we need to annotate the dataset, either automatically from within Unreal Engine or manually using label-studio and a minimum wage child worker. There are also methods to assist with, or automate the labelling process, such as [Google Gemeni](https://colab.research.google.com/github/ultralytics/notebooks/blob/main/notebooks/how-to-use-google-gemini-models-for-object-detection-image-captioning-and-ocr.ipynb), [SAM2](https://docs.ultralytics.com/models/sam-2/), or [YOLOWorld](https://docs.ultralytics.com/models/yolo-world/), as suggested by [Ultralytics](https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#how-do-i-train-yolov5-on-my-custom-dataset).
 
 ## Obtaining In-Game Footage from Unreal Engine
 
-Blueprints is a tool in Unreal Engine that holds the secret to automating this data collection process easily.
-
-Here is what Gemeni suggested:
-Okay, generating a large, diverse dataset for YOLO training directly from Unreal Engine programmatically is definitely achievable and the recommended way to go for the scale you need. Manually taking thousands of screenshots and annotating them would be incredibly tedious and prone to bias.
-
-Here's a breakdown of the process and the Unreal Engine tools/concepts you'll likely use:
+This data collection process can be automated within Unreal Engine using Blueprints/C++, outlined by the following general guidelines.
 
 **Core Idea:**
 
