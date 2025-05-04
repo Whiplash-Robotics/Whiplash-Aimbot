@@ -1,0 +1,157 @@
+---
+title: Dataset Creation
+description: "Updated: May 4, 2025"
+---
+
+## Objectives
+
+We now should have determined the YOLO model suitable for the goals of the project and a dataset will need to be created to detect the custom enemies in our game and a dataset will need to be created to detect the custom enemies in our video game.
+
+There are two overall steps to assembling the dataset.
+
+First of all, we need to obtain the raw images from the game of the enemy on various positions on the screen, in various orientations, and in a variety of environments. 
+
+Second, we need to annotate the dataset, using label-studio and a minimum wage child worker. There are also methods to assist with, or automate the labelling process, such as (Google Gemeni)[https://colab.research.google.com/github/ultralytics/notebooks/blob/main/notebooks/how-to-use-google-gemini-models-for-object-detection-image-captioning-and-ocr.ipynb], (SAM2)[https://docs.ultralytics.com/models/sam-2/], or (YOLOWorld)[https://docs.ultralytics.com/models/yolo-world/], as suggested by (Ultralytics)[https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#how-do-i-train-yolov5-on-my-custom-dataset].
+
+## Obtaining In-Game Footage from Unreal Engine
+
+Blueprints is a tool in Unreal Engine that holds the secret to automating this data collection process easily.
+
+Here is what Gemeni suggested:
+Okay, generating a large, diverse dataset for YOLO training directly from Unreal Engine programmatically is definitely achievable and the recommended way to go for the scale you need. Manually taking thousands of screenshots and annotating them would be incredibly tedious and prone to bias.
+
+Here's a breakdown of the process and the Unreal Engine tools/concepts you'll likely use:
+
+**Core Idea:**
+
+1.  **Sets up a scene:** Places the enemy, camera, environment elements, and potential occluders randomly or systematically according to your diversity requirements.
+2.  **Captures an image:** Renders the scene from the camera's perspective to an image file.
+3.  **Calculates the bounding box:** Determines the 2D pixel coordinates of the enemy object within the captured image.
+4.  **Saves the image and annotation:** Writes the image file and the corresponding YOLO-formatted annotation file (`.txt`).
+5.  **Repeats:** Loops through this process thousands of times with different variations.
+
+**Key Unreal Engine Components and Techniques:**
+
+1.  **Scene Setup (Automation Actor/Manager):**
+    *   **Create a dedicated Actor:** Make a new Blueprint Actor (e.g., `BP_DatasetGenerator`) that will orchestrate the process. You can trigger its logic from the level blueprint, a custom editor button, or even a commandlet for headless execution.
+    *   **Enemy Spawning/Positioning:**
+        *   Use `Spawn Actor From Class` to spawn your enemy character/pawn.
+        *   Use `Set Actor Location` and `Set Actor Rotation` to place the enemy. To achieve variations:
+            *   **Position:** Define spawn volumes or calculate random points within the camera's view frustum (`Get Random Point In Bounding Box` on a volume, or mathematical calculations based on camera view). Ensure points are within reasonable distances.
+            *   **Orientation:** Use `Set Actor Rotation` with `Random Rotator`.
+    *   **Camera Control:**
+        *   Instead of possessing the player camera, it's often better to use a dedicated `Scene Capture Component 2D`. This component acts like a camera but renders its view to a Texture Render Target.
+        *   Add a `Scene Capture Component 2D` to your `BP_DatasetGenerator` or spawn a dedicated Camera Actor with this component.
+        *   Position and rotate this capture component programmatically (`Set World Location/Rotation`) to get different views of the enemy. You might want to orbit the enemy, change distance, or use random positions/rotations pointing towards the enemy.
+    *   **Environment Variation:**
+        *   **Multiple Levels:** Use `Open Level` to load different maps/environments. Your generation script would need to run, save data, load the next level, run again, etc.
+        *   **Dynamic Elements:** Within a single level, programmatically change lighting (Directional Light intensity/rotation, Sky Light settings), weather effects (if you have them), and spawn/despawn background/foreground actors to vary the scene.
+        *   **Occlusion:** Programmatically spawn simple shapes (cubes, spheres) or other game assets (`Static Mesh Actors`) at random positions *between* the camera and the enemy. Ensure the occluder doesn't *completely* hide the enemy (unless you specifically want examples of fully occluded enemies, which YOLO typically can't detect anyway).
+
+2.  **Image Capture:**
+    *   **`Scene Capture Component 2D`:** This is the preferred method.
+        *   Create a `Texture Render Target` asset in the Content Browser. Assign this asset to the `Texture Target` property of your `Scene Capture Component 2D`.
+        *   Set the `Capture Source` (e.g., `Final Color (LDR) in RGB` is usually good).
+        *   Set the desired resolution in the `Texture Render Target` asset (e.g., 640x640, 1280x720).
+    *   **Saving the Image:**
+        *   Use the `Export Render Target` Blueprint node (or the underlying C++ function `UKismetRenderingLibrary::ExportRenderTarget`).
+        *   Provide a file path (e.g., `D:/YOLO_Dataset/images/enemy_00001.png`). Make sure the directory exists or create it programmatically. Use a counter to generate unique filenames.
+
+3.  **Bounding Box Calculation (The Crucial Part):**
+    *   **`Project World to Screen`:** This is the key function (available in Blueprints and C++ via the `Player Controller`). It converts a 3D world-space coordinate to 2D screen-space coordinates.
+    *   **Getting Enemy Bounds:** You need the extent of the enemy in 3D.
+        *   Use `Get Actor Bounds` on the enemy actor. This gives you the `Origin` (center) and `Box Extent` of the axis-aligned bounding box surrounding the actor in world space.
+    *   **Projecting Corners:** An actor isn't a single point. To get a 2D bounding box:
+        1.  Calculate the 8 corner points of the 3D world-space bounding box using the `Origin` and `Box Extent`.
+        2.  Get the `Player Controller` associated with your view (even if using Scene Capture, you often need a context, potentially `GetPlayerController(0)` if running in PIE, but be careful in packaged builds or headless mode - you might need to create a temporary controller or use alternative projection methods if available for Scene Capture directly).
+        3.  Loop through the 8 corners and use `Project World to Screen` for each. This node also returns a boolean indicating if the projection was successful (i.e., the point is in front of the camera).
+        4.  Keep track of the minimum and maximum X and Y screen coordinates *only* from the points that were successfully projected *and* fall within the screen bounds (0 to ScreenWidth, 0 to ScreenHeight).
+        5.  If *no* points project successfully onto the screen (e.g., enemy is entirely off-screen or behind the camera), skip saving this frame or handle it appropriately.
+    *   **Screen/Render Target Size:** You need the dimensions of your output image (the resolution set in your `Texture Render Target`). You can get this from the Render Target asset's properties.
+    *   **Result:** You'll have `MinX`, `MaxX`, `MinY`, `MaxY` in pixel coordinates relative to the top-left corner of your captured image.
+
+4.  **YOLO Annotation Formatting:**
+    *   YOLO format requires a `.txt` file for each image, with each line representing one object: `<object-class> <x_center_norm> <y_center_norm> <width_norm> <height_norm>`
+    *   **`object-class`:** An integer index (starting from 0). Since you only have "enemy", this will always be `0`.
+    *   **Calculate Box Dimensions:**
+        *   `box_width = MaxX - MinX`
+        *   `box_height = MaxY - MinY`
+    *   **Calculate Box Center:**
+        *   `x_center = MinX + (box_width / 2.0)`
+        *   `y_center = MinY + (box_height / 2.0)`
+    *   **Normalize:** Divide by the image dimensions (obtained from your Render Target):
+        *   `image_width = RenderTarget.SizeX`
+        *   `image_height = RenderTarget.SizeY`
+        *   `x_center_norm = x_center / image_width`
+        *   `y_center_norm = y_center / image_height`
+        *   `width_norm = box_width / image_width`
+        *   `height_norm = box_height / image_height`
+    *   **Saving the `.txt` file:**
+        *   Construct the string: `0 x_center_norm y_center_norm width_norm height_norm` (using floating-point formatting).
+        *   Use file I/O nodes/functions (like `Write String to File` from a plugin like Low Entry File Manager, or implement C++ file writing) to save this string to a `.txt` file with the *same base name* as your image file (e.g., `D:/YOLO_Dataset/labels/enemy_00001.txt`).
+
+5.  **Iteration and Automation:**
+    *   **Looping:** Use a `For Loop` or `While Loop` in your `BP_DatasetGenerator`'s logic (e.g., in its `Begin Play` or a custom event).
+    *   **Randomization:** Inside the loop, apply all the randomization steps for position, rotation, environment, occlusion, and camera view.
+    *   **Delay/Tick:** Don't run everything instantly in one frame. Rendering and file saving take time. Use `Delay` nodes between iterations, or structure the logic across multiple ticks if necessary. Capturing via Scene Capture might take a frame to update the render target.
+    *   **Output Structure:** Ensure you create `images` and `labels` subdirectories for your dataset.
+    *   **Configuration:** Make parameters like the number of images to generate, output path, randomization ranges, etc., editable variables on your `BP_DatasetGenerator` actor for easy tweaking.
+
+**Example High-Level Blueprint Logic (Conceptual):**
+
+```
+Event BeginPlay (or Custom Event "GenerateDataset")
+  |
+  ----> For Loop (Index from 0 to NumImagesToGenerate - 1)
+        |
+        -----> // --- Scene Setup ---
+        |      Set Random Enemy Location (within bounds)
+        |      Set Random Enemy Rotation
+        |      Set Random Camera Position/Rotation (e.g., orbiting enemy)
+        |      (Optional) Load Random Level / Change Lighting / Spawn Occluders
+        |
+        -----> // --- Capture & Calculate ---
+        |      (Wait a frame if needed for Scene Capture to update -> Delay 0.0s)
+        |      Calculate 3D Bounding Box Corners of Enemy
+        |      Project Corners to Screen (using PlayerController context & Scene Capture's view)
+        |      Find Min/Max X/Y from valid projected points
+        |      IF (Valid Box Found AND Box partially on screen) THEN
+        |      |
+        |      |----> // --- Save Image ---
+        |      |      Get Render Target Texture
+        |      |      Construct Image File Path (e.g., ".../images/enemy_{Index}.png")
+        |      |      Export Render Target (to Image File Path)
+        |      |
+        |      |----> // --- Format & Save Annotation ---
+        |      |      Get Render Target Width/Height
+        |      |      Calculate YOLO Normalized Coordinates (x_center, y_center, width, height)
+        |      |      Format YOLO String ("0 norm_x norm_y norm_w norm_h")
+        |      |      Construct Label File Path (e.g., ".../labels/enemy_{Index}.txt")
+        |      |      Write String to File (to Label File Path)
+        |      |
+        |      ----> // (End IF Valid Box)
+        |
+        -----> (Loop Continues)
+```
+
+**Considerations & Potential Improvements:**
+
+*   **Performance:** Generating thousands of images can be slow. Consider running this process in a non-real-time manner, perhaps overnight or using UE's Commandlet system for headless execution without rendering to the main screen.
+*   **Edge Cases:** Handle cases where the enemy is fully occluded, fully off-screen, or too close/far. Decide if you want these samples (e.g., negative samples with no bounding box) or if you should just skip them. Clamping the bounding box to screen edges (0.0 to 1.0 after normalization) is often necessary.
+*   **Multiple Enemies:** If you need to detect multiple enemies in one frame, spawn multiple enemies, loop through each one, calculate its bounding box, and append a new line to the *same* `.txt` file for that image.
+*   **Blueprint vs. C++:** Blueprints are great for prototyping this. For performance-critical parts (heavy looping, complex math, file I/O), C++ might be significantly faster. You can create Blueprint-callable C++ functions.
+*   **Plugins:** Look for plugins on the UE Marketplace related to "Dataset Generation," "Computer Vision," or enhanced "File I/O" which might simplify some steps. However, the core logic described above is achievable with built-in tools.
+*   **Verification:** After generating a batch, manually inspect some images and their corresponding `.txt` files (using an annotation tool) to ensure the bounding boxes are accurate.
+
+## Label Studio
+
+If automatic image labelling is too tough to implement in Unreal Engine, the best way to manually label the images is by using Label Studio.
+
+### Installation
+
+```sh
+pip3 install label-studio
+label-studio
+```
+
+Everything else should be intuitive from their GUI.
