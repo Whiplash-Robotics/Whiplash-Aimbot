@@ -2,8 +2,8 @@ train: ../train/images
 val: ../valid/images
 test: ../test/images
 
-nc: 1
-names: ['-']
+nc: 4
+names: ['X', '.', '.', '.']
 
 roboflow:
   workspace: nanjing-university-eotbh
