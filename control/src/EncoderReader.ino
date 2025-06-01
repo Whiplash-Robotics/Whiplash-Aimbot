@@ -1,24 +1,31 @@
-#define INPUT_PIN 7
+// on Mega, interrupt‐capable pins: 2,3,18,19,20,21
+#define SENSOR_PIN 3
 
-void setup() {
+volatile unsigned long lastTime  = 0;
+volatile unsigned long periodUs  = 0;
+volatile bool          newData = false;
 
-  Serial.begin(9600);
-  pinMode(INPUT_PIN, INPUT);
- 
+void onEdge() {
+  unsigned long now = micros();
+  periodUs = now - lastTime;
+  lastTime = now;
+  newData = true;
 }
 
-long lastTime = 0;
-int state = 0;
+void setup() {
+  Serial.begin(115200);
+  pinMode(SENSOR_PIN, INPUT);
+  lastTime = micros();
+  attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), onEdge, RISING);
+}
 
 void loop() {
+  if (newData) {
+    noInterrupts();
+    unsigned long p = periodUs;
+    newData = false;
+    interrupts();
 
-  int currentState = digitalRead(INPUT_PIN);
-  if (state == currentState) return;
-
-  long currentTime = micros();
-
-  Serial.println((currentTime - lastTime) / 1000.0f);
-
-  lastTime = currentTime;
-  state = currentState;
+    Serial.println(p/1000.0f, 5);
+  }
 }
