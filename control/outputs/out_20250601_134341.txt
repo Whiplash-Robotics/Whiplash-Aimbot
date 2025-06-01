@@ -1,0 +1,9 @@
+# Log started at: 2025-06-01 13:43:41
+# Data from port: COM3 at 115200 baud
+LOGGING_START
+OFF_ms:2838.300
+ON_ms:1557.100
+OFF_ms:2007.104
+ON_ms:1917.896
+LOGGING_STOP
+# Log stopped at: 2025-06-01 13:43:51
