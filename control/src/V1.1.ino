@@ -57,7 +57,7 @@ void setup() {
   pinMode(STOP_BUTTON_PIN, INPUT_PULLUP);
 
   // Initialize Hall Sensor Pin
-  pinMode(SENSOR_PIN, INPUT); // Set sensor pin as input.
+  pinMode(SENSOR_PIN, INPUT_PULLUP); // Set sensor pin as input.
                               // Use INPUT_PULLUP if your sensor has an open-collector/drain output
                               // and no external pull-up resistor.
 
