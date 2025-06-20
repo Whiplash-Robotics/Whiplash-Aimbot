@@ -1,31 +1,35 @@
-import serial
-import datetime
-import time
 import argparse
+import datetime
 import os
+import time
+
+import serial
+
 
 def main():
     """Main function to listen to serial port and log data, configured by CLI arguments."""
 
-    parser = argparse.ArgumentParser(description="Log data from a serial port to timestamped files.")
+    parser = argparse.ArgumentParser(
+        description="Log data from a serial port to timestamped files."
+    )
     parser.add_argument(
         "output_dir",
         nargs="?",
-        default="../outputs/raw", # Default output directory
-        help="Directory where log files will be saved. Default: ../outputs/raw"
+        default="../outputs/raw",  # Default output directory
+        help="Directory where log files will be saved. Default: ../outputs/raw",
     )
     parser.add_argument(
         "port",
         nargs="?",
         default="COM3",
-        help="Serial port name (e.g., COM3, /dev/ttyUSB0). Default: COM3"
+        help="Serial port name (e.g., COM3, /dev/ttyUSB0). Default: COM3",
     )
     parser.add_argument(
         "baud_rate",
         nargs="?",
         type=int,
         default=115200,
-        help="Baud rate for serial communication (e.g., 9600, 115200). Default: 115200"
+        help="Baud rate for serial communication (e.g., 9600, 115200). Default: 115200",
     )
 
     args = parser.parse_args()
@@ -35,7 +39,7 @@ def main():
     baud_rate = args.baud_rate
 
     output_file = None
-    current_log_filepath = None # To store the path of the currently open log file
+    current_log_filepath = None  # To store the path of the currently open log file
     logging_active = False
 
     try:
@@ -59,45 +63,65 @@ def main():
         while True:
             try:
                 if ser.in_waiting > 0:
-                    line = ser.readline().decode('utf-8', errors='ignore').strip()
+                    line = ser.readline().decode("utf-8", errors="ignore").strip()
 
                     if line:
                         print(f"Received: {line}")
 
                         if line == "LOGGING_START":
                             if logging_active and output_file:
-                                print("LOGGING_START received while already logging. Closing previous file and starting new.")
+                                print(
+                                    "LOGGING_START received while already logging. Closing previous file and starting new."
+                                )
                                 output_file.close()
                                 # No need to delete previous file here, as it was a completed session or an old partial one.
 
-                            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                            timestamp = datetime.datetime.now().strftime(
+                                "%Y%m%d_%H%M%S"
+                            )
                             filename_only = f"out_{timestamp}.txt"
-                            current_log_filepath = os.path.join(output_dir, filename_only)
+                            current_log_filepath = os.path.join(
+                                output_dir, filename_only
+                            )
 
                             try:
                                 output_file = open(current_log_filepath, "w")
                                 logging_active = True
-                                print(f"--- Logging started to {current_log_filepath} ---")
-                                output_file.write(f"# Log started at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-                                output_file.write(f"# Data from port: {port} at {baud_rate} baud\n")
+                                print(
+                                    f"--- Logging started to {current_log_filepath} ---"
+                                )
+                                output_file.write(
+                                    f"# Log started at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                                )
+                                output_file.write(
+                                    f"# Data from port: {port} at {baud_rate} baud\n"
+                                )
                                 output_file.write(line + "\n")
                             except IOError as e:
-                                print(f"Error: Could not open file {current_log_filepath} for writing: {e}")
+                                print(
+                                    f"Error: Could not open file {current_log_filepath} for writing: {e}"
+                                )
                                 logging_active = False
                                 output_file = None
-                                current_log_filepath = None # Reset if open failed
+                                current_log_filepath = None  # Reset if open failed
 
                         elif line == "LOGGING_STOP":
                             if logging_active and output_file:
                                 print(f"--- Logging stopped for {output_file.name} ---")
                                 output_file.write(line + "\n")
-                                output_file.write(f"# Log stopped at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                                output_file.write(
+                                    f"# Log stopped at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                                )
                                 output_file.close()
                                 output_file = None
-                                current_log_filepath = None # Current session ended successfully
+                                current_log_filepath = (
+                                    None  # Current session ended successfully
+                                )
                                 logging_active = False
                             elif not logging_active:
-                                print("Received LOGGING_STOP without an active logging session. Ignoring.")
+                                print(
+                                    "Received LOGGING_STOP without an active logging session. Ignoring."
+                                )
 
                         elif logging_active and output_file:
                             output_file.write(line + "\n")
@@ -107,7 +131,7 @@ def main():
                 print(f"Serial error: {e}")
                 print("Attempting to reconnect in 5 seconds...")
                 if output_file:
-                    output_file.close() # Close the file
+                    output_file.close()  # Close the file
                     # Decide if you want to delete a partial file on serial error or keep it
                     # For now, let's keep it, as it wasn't a user interrupt.
                     # If you want to delete:
@@ -131,18 +155,22 @@ def main():
             except KeyboardInterrupt:
                 print("\nKeyboardInterrupt received. Exiting program.")
                 if logging_active and output_file and current_log_filepath:
-                    print(f"Closing and deleting incomplete log file: {current_log_filepath}")
-                    output_file.close() # Close it first
+                    print(
+                        f"Closing and deleting incomplete log file: {current_log_filepath}"
+                    )
+                    output_file.close()  # Close it first
                     if os.path.exists(current_log_filepath):
                         try:
                             os.remove(current_log_filepath)
                             print(f"Successfully deleted {current_log_filepath}")
                         except OSError as e_del:
-                            print(f"Error deleting file {current_log_filepath}: {e_del}")
-                elif output_file: # If file was somehow open but not logging_active
+                            print(
+                                f"Error deleting file {current_log_filepath}: {e_del}"
+                            )
+                elif output_file:  # If file was somehow open but not logging_active
                     output_file.close()
-                logging_active = False # Ensure logging stops
-                break # Exit the main while loop
+                logging_active = False  # Ensure logging stops
+                break  # Exit the main while loop
             except Exception as e:
                 print(f"An unexpected error occurred: {e}")
                 # Consider if the current file should be closed/deleted on other errors too
@@ -151,9 +179,11 @@ def main():
     except serial.SerialException as e:
         print(f"Error: Could not open serial port {port}. Details: {e}")
         print("Please check the port name, ensure the Arduino is connected,")
-        print("and that no other program is using the port (e.g., Arduino IDE Serial Monitor).")
+        print(
+            "and that no other program is using the port (e.g., Arduino IDE Serial Monitor)."
+        )
     finally:
-        if 'ser' in locals() and ser.is_open:
+        if "ser" in locals() and ser.is_open:
             ser.close()
             print("Serial port closed.")
         # This final check for output_file is mostly for unexpected exits
@@ -164,6 +194,7 @@ def main():
             # If exiting here and it was an active logging session that wasn't handled by KeyboardInterrupt,
             # you might also consider deleting current_log_filepath if it exists and logging was active.
             # However, the KeyboardInterrupt logic is the primary place for that specific cleanup.
+
 
 if __name__ == "__main__":
     main()
