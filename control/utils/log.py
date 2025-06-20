@@ -47,8 +47,7 @@ def main():
             os.makedirs(output_dir)
             print(f"Created output directory: {output_dir}")
     except OSError as e:
-        print(f"Error: Could not create output directory {output_dir}. Details: {e}")
-        print("Please check permissions or create the directory manually.")
+        print(f"Error: Could not create output directory {output_dir}. Details: {e}. Please check permissions or create the directory manually.")
         return
 
     print(f"Output directory: {os.path.abspath(output_dir)}")
@@ -70,9 +69,7 @@ def main():
 
                         if line == "LOGGING_START":
                             if logging_active and output_file:
-                                print(
-                                    "LOGGING_START received while already logging. Closing previous file and starting new."
-                                )
+                                print("LOGGING_START received while already logging. Closing previous file and starting new.")
                                 output_file.close()
                                 # No need to delete previous file here, as it was a completed session or an old partial one.
 
@@ -119,17 +116,14 @@ def main():
                                 )
                                 logging_active = False
                             elif not logging_active:
-                                print(
-                                    "Received LOGGING_STOP without an active logging session. Ignoring."
-                                )
+                                print("Received LOGGING_STOP without an active logging session. Ignoring.")
 
                         elif logging_active and output_file:
                             output_file.write(line + "\n")
                             output_file.flush()
 
             except serial.SerialException as e:
-                print(f"Serial error: {e}")
-                print("Attempting to reconnect in 5 seconds...")
+                print(f"Serial error: {e}. Attempting to reconnect in 5 seconds...")
                 if output_file:
                     output_file.close()  # Close the file
                     # Decide if you want to delete a partial file on serial error or keep it
@@ -155,9 +149,7 @@ def main():
             except KeyboardInterrupt:
                 print("\nKeyboardInterrupt received. Exiting program.")
                 if logging_active and output_file and current_log_filepath:
-                    print(
-                        f"Closing and deleting incomplete log file: {current_log_filepath}"
-                    )
+                    print(f"Closing and deleting incomplete log file: {current_log_filepath}")
                     output_file.close()  # Close it first
                     if os.path.exists(current_log_filepath):
                         try:
@@ -177,11 +169,7 @@ def main():
                 time.sleep(1)
 
     except serial.SerialException as e:
-        print(f"Error: Could not open serial port {port}. Details: {e}")
-        print("Please check the port name, ensure the Arduino is connected,")
-        print(
-            "and that no other program is using the port (e.g., Arduino IDE Serial Monitor)."
-        )
+        print(f"Error: Could not open serial port {port}. Details: {e}. Please check the port name, ensure the Arduino is connected, and that no other program is using the port (e.g., Arduino IDE Serial Monitor).")
     finally:
         if "ser" in locals() and ser.is_open:
             ser.close()

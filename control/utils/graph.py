@@ -28,10 +28,7 @@ try:
         # plt.rcParams['font.family'] = 'sans-serif'
         print(f"💡 Matplotlib using font: {chosen_font} for emojis.")
     else:
-        print(
-            "⚠️ Warning: Could not find 'Noto Color Emoji', 'Segoe UI Emoji', or 'Apple Color Emoji'. Emojis in plots might not render correctly."
-        )
-        print("💡 Consider installing 'Noto Color Emoji' for best results.")
+        print("⚠️ Warning: Could not find 'Noto Color Emoji', 'Segoe UI Emoji', or 'Apple Color Emoji'. Emojis in plots might not render correctly. 💡 Consider installing 'Noto Color Emoji' for best results.")
 
 except Exception as e:
     print(f"⚠️ Warning: Could not configure matplotlib font settings: {e}")
@@ -100,9 +97,7 @@ def process_log_file(filepath, angular_resolution_segments):
 
                 if line == "LOGGING_START":
                     if logging_active and processed_data_for_this_file:
-                        print(
-                            f"⚠️ Warning: File '{os.path.basename(filepath)}' contains multiple LOGGING_START sections. Only the first will be processed."
-                        )
+                        print(f"⚠️ Warning: File '{os.path.basename(filepath)}' contains multiple LOGGING_START sections. Only the first will be processed.")
                         break
                     logging_active = True
                     current_total_time_s = 0.0
@@ -127,9 +122,7 @@ def process_log_file(filepath, angular_resolution_segments):
                             event_duration_ms = float(value_str)
 
                             if event_duration_ms <= 0:
-                                print(
-                                    f"⚠️ Warning: Non-positive duration ({event_duration_ms}ms) in '{os.path.basename(filepath)}' on line {line_number}: '{line}'. Skipping."
-                                )
+                                print(f"⚠️ Warning: Non-positive duration ({event_duration_ms}ms) in '{os.path.basename(filepath)}' on line {line_number}: '{line}'. Skipping.")
                                 continue
 
                             rpm = 60000.0 / (
@@ -137,9 +130,7 @@ def process_log_file(filepath, angular_resolution_segments):
                             )
 
                             if rpm < 0 or rpm > 10000:  # Basic sanity check for RPM
-                                print(
-                                    f"⚠️ Warning: Unreasonable RPM value ({rpm}) in '{os.path.basename(filepath)}' on line {line_number}: '{line}'. Skipping."
-                                )
+                                print(f"⚠️ Warning: Unreasonable RPM value ({rpm}) in '{os.path.basename(filepath)}' on line {line_number}: '{line}'. Skipping.")
                                 continue
                             event_duration_s = event_duration_ms / 1000.0
                             current_total_time_s += event_duration_s
@@ -150,21 +141,15 @@ def process_log_file(filepath, angular_resolution_segments):
                             processed_data_for_this_file = True
 
                         except ValueError:
-                            print(
-                                f"⚠️ Warning: Could not parse data value in '{os.path.basename(filepath)}' on line {line_number}: '{line}'. Skipping."
-                            )
+                            print(f"⚠️ Warning: Could not parse data value in '{os.path.basename(filepath)}' on line {line_number}: '{line}'. Skipping.")
                         except ZeroDivisionError:
-                            print(
-                                f"🛑 Critical Warning: Zero division error for '{os.path.basename(filepath)}' line {line_number}: '{line}'. This should not happen if angular_resolution_segments is positive."
-                            )
+                            print(f"🛑 Critical Warning: Zero division error for '{os.path.basename(filepath)}' line {line_number}: '{line}'. This should not happen if angular_resolution_segments is positive.")
 
     except FileNotFoundError:
         print(f"🛑 Error: Input file '{filepath}' not found during processing.")
         return None, None, None
     except Exception as e:
-        print(
-            f"🛑 An unexpected error occurred while processing file '{filepath}': {e}"
-        )
+        print(f"🛑 An unexpected error occurred while processing file '{filepath}': {e}")
         return None, None, None
 
     if not timestamps_s and not processed_data_for_this_file:
@@ -187,9 +172,7 @@ def plot_and_save_rpm(
     Allows specifying start and end times for x-axis zoom.
     """
     if not timestamps_s or not rpms:
-        print(
-            f"🛑 No data provided to plot for {os.path.basename(input_filepath)}. Plotting skipped."
-        )
+        print(f"🛑 No data provided to plot for {os.path.basename(input_filepath)}. Plotting skipped.")
         return
 
     fig, ax = plt.subplots(figsize=(12, 7))
@@ -252,9 +235,7 @@ def main():
     args = parse_arguments()
 
     if args.angular_resolution_segments <= 0:
-        print(
-            f"🛑 Error: Angular resolution ({args.angular_resolution_segments} segments) must be a positive integer."
-        )
+        print(f"🛑 Error: Angular resolution ({args.angular_resolution_segments} segments) must be a positive integer.")
         return
 
     if args.start_time is not None and args.start_time < 0:
@@ -268,20 +249,14 @@ def main():
         and args.end_time is not None
         and args.start_time >= args.end_time
     ):
-        print(
-            f"🛑 Error: Start time ({args.start_time}s) must be less than end time ({args.end_time}s) for zooming."
-        )
+        print(f"🛑 Error: Start time ({args.start_time}s) must be less than end time ({args.end_time}s) for zooming.")
         return
 
     try:
         os.makedirs(args.output_folder, exist_ok=True)
-        print(
-            f"📂 Output directory: '{args.output_folder}' (created if it didn't exist)."
-        )
+        print(f"📂 Output directory: '{args.output_folder}' (created if it didn't exist).")
     except OSError as e:
-        print(
-            f"🛑 Error: Could not create output directory '{args.output_folder}': {e}"
-        )
+        print(f"🛑 Error: Could not create output directory '{args.output_folder}': {e}")
         return
 
     files_to_process = []
@@ -299,9 +274,7 @@ def main():
         if not found_files_in_dir:
             print(f"ℹ️ No files found in directory '{args.input_path}'.")
     else:
-        print(
-            f"🛑 Error: Input path '{args.input_path}' is not a valid file or directory."
-        )
+        print(f"🛑 Error: Input path '{args.input_path}' is not a valid file or directory.")
         return
 
     if not files_to_process:
@@ -309,9 +282,7 @@ def main():
         return
 
     print(f"Found {len(files_to_process)} potential file(s) to process.")
-    print(
-        f"Angular resolution set to: {args.angular_resolution_segments} segments per 360 degrees."
-    )
+    print(f"Angular resolution set to: {args.angular_resolution_segments} segments per 360 degrees.")
     if args.start_time is not None or args.end_time is not None:
         zoom_info = []
         if args.start_time is not None:
@@ -336,9 +307,7 @@ def main():
 
         print(f"\n--- Evaluating: {base_name} ---")
         if os.path.exists(output_graph_filepath):
-            print(
-                f"⏩ Output graph '{output_graph_filepath}' already exists. Skipping."
-            )
+            print(f"⏩ Output graph '{output_graph_filepath}' already exists. Skipping.")
             num_skipped += 1
             continue
 
@@ -348,9 +317,7 @@ def main():
         )
 
         if timestamps and rpms_data and source_lines:
-            print(
-                f"✔️ Successfully processed {len(timestamps)} data points from '{base_name}'."
-            )
+            print(f"✔️ Successfully processed {len(timestamps)} data points from '{base_name}'.")
 
             plot_and_save_rpm(
                 timestamps,
@@ -370,18 +337,14 @@ def main():
                         rpm_value = rpms_data[i]
                         source_line = source_lines[i]
                         rpm_f.write(f"RPM: {rpm_value:.2f}, FOR LINE: {source_line}\n")
-                print(
-                    f"🗒️ RPM values logged to '{output_log_filepath}'."
-                )  # Changed emoji
+                print(f"🗒️ RPM values logged to '{output_log_filepath}'.")  # Changed emoji
                 num_logs_generated += 1
             except IOError as e:
                 print(f"🛑 Error writing RPM log to '{output_log_filepath}': {e}")
         else:
-            print(
-                f"💡 No valid data processed or error occurred for '{base_name}'. No graph or log generated."
-            )
+            print(f"💡 No valid data processed or error occurred for '{base_name}'. No graph or log generated.")
 
-    print(f"\n--- Processing Summary ---")
+    print("\n--- Processing Summary ---")
     print(f"Total files evaluated: {len(files_to_process)}")
     print(f"Graphs generated: {num_graphs_generated}")
     print(f"RPM value logs generated: {num_logs_generated}")
@@ -391,3 +354,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
