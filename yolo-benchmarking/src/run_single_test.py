@@ -3,7 +3,7 @@ import torch
 
 if __name__ == '__main__':
     # Load a model
-    model = YOLO("/models/YOLOv10n/yolov10n.pt")
+    model = YOLO("/models/YOLO11s/yolo11s.pt")
 
     print("Available devices:")
     if torch.cuda.is_available():
@@ -16,7 +16,7 @@ if __name__ == '__main__':
         epochs=100,  # number of training epochs
         imgsz=640,  # training image size
         workers=12,
-        batch=64,
+        batch=32,
         device="0" if torch.cuda.is_available() else "cpu",  # automatically select GPU if available, otherwise use CPU
     )
 
